@@ -76,6 +76,14 @@ void EnumTypes_zero_initialized(void);
 void EnumTypes_enum_relation(void);
 void EnumTypes_enum_w_short_notation(void);
 void EnumTypes_enum_modified_event(void);
+void EnumTypes_enum_w_underlying_i8(void);
+void EnumTypes_enum_w_underlying_i16(void);
+void EnumTypes_enum_w_underlying_i32(void);
+void EnumTypes_enum_w_underlying_i64(void);
+void EnumTypes_enum_w_underlying_u8(void);
+void EnumTypes_enum_w_underlying_u16(void);
+void EnumTypes_enum_w_underlying_u32(void);
+void EnumTypes_enum_w_underlying_u64(void);
 
 // Testsuite 'BitmaskTypes'
 void BitmaskTypes_bitmask_1_constant(void);
@@ -348,6 +356,15 @@ void Cursor_set_signed_as_unsigned_out_of_range(void);
 void Cursor_set_unsigned_as_signed_out_of_range(void);
 void Cursor_set_string_to_null_as_signed(void);
 void Cursor_set_string_to_null_as_unsigned(void);
+void Cursor_set_string_to_bool(void);
+void Cursor_set_string_to_char(void);
+void Cursor_set_string_to_signed(void);
+void Cursor_set_string_to_unsigned(void);
+void Cursor_set_string_to_float(void);
+void Cursor_set_string_to_string(void);
+void Cursor_set_string_to_string_literal(void);
+void Cursor_set_string_to_entity(void);
+void Cursor_set_string_to_id(void);
 void Cursor_set_entity_as_signed(void);
 void Cursor_set_entity_as_unsigned(void);
 void Cursor_set_entity_as_signed_out_of_range(void);
@@ -451,6 +468,8 @@ void Cursor_opaque_vec_w_opaque_elem(void);
 void Cursor_next_out_of_bounds(void);
 void Cursor_set_out_of_bounds(void);
 void Cursor_get_member_id(void);
+void Cursor_get_array_type(void);
+void Cursor_get_vector_type(void);
 
 // Testsuite 'DeserializeFromJson'
 void DeserializeFromJson_struct_bool(void);
@@ -1273,6 +1292,38 @@ bake_test_case EnumTypes_testcases[] = {
     {
         "enum_modified_event",
         EnumTypes_enum_modified_event
+    },
+    {
+        "enum_w_underlying_i8",
+        EnumTypes_enum_w_underlying_i8
+    },
+    {
+        "enum_w_underlying_i16",
+        EnumTypes_enum_w_underlying_i16
+    },
+    {
+        "enum_w_underlying_i32",
+        EnumTypes_enum_w_underlying_i32
+    },
+    {
+        "enum_w_underlying_i64",
+        EnumTypes_enum_w_underlying_i64
+    },
+    {
+        "enum_w_underlying_u8",
+        EnumTypes_enum_w_underlying_u8
+    },
+    {
+        "enum_w_underlying_u16",
+        EnumTypes_enum_w_underlying_u16
+    },
+    {
+        "enum_w_underlying_u32",
+        EnumTypes_enum_w_underlying_u32
+    },
+    {
+        "enum_w_underlying_u64",
+        EnumTypes_enum_w_underlying_u64
     }
 };
 
@@ -2318,6 +2369,42 @@ bake_test_case Cursor_testcases[] = {
         Cursor_set_string_to_null_as_unsigned
     },
     {
+        "set_string_to_bool",
+        Cursor_set_string_to_bool
+    },
+    {
+        "set_string_to_char",
+        Cursor_set_string_to_char
+    },
+    {
+        "set_string_to_signed",
+        Cursor_set_string_to_signed
+    },
+    {
+        "set_string_to_unsigned",
+        Cursor_set_string_to_unsigned
+    },
+    {
+        "set_string_to_float",
+        Cursor_set_string_to_float
+    },
+    {
+        "set_string_to_string",
+        Cursor_set_string_to_string
+    },
+    {
+        "set_string_to_string_literal",
+        Cursor_set_string_to_string_literal
+    },
+    {
+        "set_string_to_entity",
+        Cursor_set_string_to_entity
+    },
+    {
+        "set_string_to_id",
+        Cursor_set_string_to_id
+    },
+    {
         "set_entity_as_signed",
         Cursor_set_entity_as_signed
     },
@@ -2728,6 +2815,14 @@ bake_test_case Cursor_testcases[] = {
     {
         "get_member_id",
         Cursor_get_member_id
+    },
+    {
+        "get_array_type",
+        Cursor_get_array_type
+    },
+    {
+        "get_vector_type",
+        Cursor_get_vector_type
     }
 };
 
@@ -4926,7 +5021,7 @@ static bake_test_suite suites[] = {
         "EnumTypes",
         NULL,
         NULL,
-        9,
+        17,
         EnumTypes_testcases
     },
     {
@@ -4989,7 +5084,7 @@ static bake_test_suite suites[] = {
         "Cursor",
         NULL,
         NULL,
-        135,
+        146,
         Cursor_testcases
     },
     {

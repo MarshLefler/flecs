@@ -41,12 +41,6 @@ ecs_flags32_t flecs_id_flag_for_event(
     if (e == EcsOnSet) {
         return EcsIdHasOnSet;
     }
-    if (e == EcsOnTableFill) {
-        return EcsIdHasOnTableFill;
-    }
-    if (e == EcsOnTableEmpty) {
-        return EcsIdHasOnTableEmpty;
-    }
     if (e == EcsOnTableCreate) {
         return EcsIdHasOnTableCreate;
     }
@@ -459,8 +453,6 @@ void flecs_multi_observer_invoke(
         return;
     }
 
-    impl->last_event_id[0] = world->event_id;
-
     ecs_table_t *table = it->table;
     ecs_table_t *prev_table = it->other_table;
     int8_t pivot_term = it->term_index;
@@ -512,6 +504,8 @@ void flecs_multi_observer_invoke(
                 goto done;
             }
         }
+
+        impl->last_event_id[0] = it->event_cur;
 
         /* Patch data from original iterator. If the observer query has 
          * wildcards which triggered the original event, the component id that
@@ -637,8 +631,6 @@ void flecs_observer_yield_existing(
     if (!run) {
         run = flecs_multi_observer_invoke_no_query;
     }
-
-    ecs_run_aperiodic(world, EcsAperiodicEmptyTables);
 
     ecs_defer_begin(world);
 
@@ -808,9 +800,7 @@ int flecs_multi_observer_init(
     bool only_table_events = true;
     for (i = 0; i < o->event_count; i ++) {
         ecs_entity_t e = o->events[i];
-        if (e != EcsOnTableCreate && e != EcsOnTableDelete && 
-            e != EcsOnTableEmpty && e != EcsOnTableFill)
-        {
+        if (e != EcsOnTableCreate && e != EcsOnTableDelete) {
             only_table_events = false;
             break;
         }
@@ -1084,7 +1074,7 @@ ecs_entity_t ecs_observer_init(
     const ecs_observer_desc_t *desc)
 {
     ecs_entity_t entity = 0;
-    ecs_check(world != NULL, ECS_INVALID_PARAMETER, NULL);
+    flecs_poly_assert(world, ecs_world_t);
     ecs_check(desc != NULL, ECS_INVALID_PARAMETER, NULL);
     ecs_check(desc->_canary == 0, ECS_INVALID_PARAMETER,
         "ecs_observer_desc_t was not initialized to zero");

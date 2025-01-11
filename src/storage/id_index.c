@@ -179,8 +179,6 @@ ecs_flags32_t flecs_id_record_event_flags(
     result |= flecs_observers_exist(o, id, EcsOnAdd) * EcsIdHasOnAdd;
     result |= flecs_observers_exist(o, id, EcsOnRemove) * EcsIdHasOnRemove;
     result |= flecs_observers_exist(o, id, EcsOnSet) * EcsIdHasOnSet;
-    result |= flecs_observers_exist(o, id, EcsOnTableFill) * EcsIdHasOnTableFill;
-    result |= flecs_observers_exist(o, id, EcsOnTableEmpty) * EcsIdHasOnTableEmpty;
     result |= flecs_observers_exist(o, id, EcsOnTableCreate) * EcsIdHasOnTableCreate;
     result |= flecs_observers_exist(o, id, EcsOnTableDelete) * EcsIdHasOnTableDelete;
     return result;
@@ -366,6 +364,14 @@ ecs_id_record_t* flecs_id_record_new(
             /* Add reference to (*, tgt) id record to entity record */
             tgt_r->idr = idr_t;
         }
+
+        /* If second element of pair determines the type, check if the pair 
+         * should be stored as a sparse component. */
+        if (idr->type_info && idr->type_info->component == tgt) {
+            if (ecs_has_id(world, tgt, EcsSparse)) {
+                idr->flags |= EcsIdIsSparse;
+            }
+        }
     }
 
     idr->flags |= flecs_id_record_event_flags(world, id);
@@ -399,8 +405,6 @@ void flecs_id_record_assert_empty(
 {
     (void)idr;
     ecs_assert(flecs_table_cache_count(&idr->cache) == 0, 
-        ECS_INTERNAL_ERROR, NULL);
-    ecs_assert(flecs_table_cache_empty_count(&idr->cache) == 0, 
         ECS_INTERNAL_ERROR, NULL);
 }
 

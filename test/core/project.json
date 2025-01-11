@@ -196,6 +196,7 @@
                 "entity_init_w_set_1_comp_existing_defer",
                 "entity_init_w_set_1_comp_existing_empty_defer",
                 "entity_init_w_set_1_comp_1_tag_w_set_defer",
+                "entity_init_w_set_1_comp_suspend_defer",
                 "insert_1_comp",
                 "insert_2_comp",
                 "insert_1_comp_1_tag",
@@ -204,7 +205,10 @@
                 "entity_w_parent_w_add",
                 "entity_w_parent_w_add_w_parent",
                 "entity_w_parent_w_set",
-                "entity_w_parent_w_set_w_parent"
+                "entity_w_parent_w_set_w_parent",
+                "entity_w_new_id_and_double_dot",
+                "entity_w_existing_id_and_double_dot",
+                "entity_w_large_id_name"
             ]
         }, {
             "id": "Each",
@@ -517,6 +521,7 @@
                 "on_set_observer_2_terms",
                 "on_remove_observer_2_terms",
                 "sparse_relationship",
+                "sparse_relationship_second",
                 "defer_ensure",
                 "defer_ensure_w_modified",
                 "defer_ensure_modified",
@@ -645,6 +650,7 @@
                 "fullpath_for_core",
                 "path_w_number",
                 "path_w_entity_id",
+                "recreated_parent_w_named_children",
                 "lookup_depth_0",
                 "lookup_depth_1",
                 "lookup_depth_2",
@@ -768,8 +774,13 @@
             "testcases": [
                 "get_ref",
                 "get_ref_after_add",
+                "get_ref_after_add_other",
                 "get_ref_after_remove",
+                "get_ref_after_remove_other",
+                "get_ref_after_remove_component",
                 "get_ref_after_delete",
+                "get_ref_after_clear",
+                "get_ref_after_clear_other",
                 "get_ref_after_realloc",
                 "get_ref_after_realloc_w_lifecycle",
                 "get_ref_staged",
@@ -1635,7 +1646,6 @@
                 "notify_after_defer_batched",
                 "notify_after_defer_batched_2_entities_in_table",
                 "notify_after_defer_batched_2_entities_in_table_w_tgt",
-                "multi_observer_table_fill_w_singleton",
                 "wildcard_propagate_w_other_table",
                 "add_in_on_add_yield_existing",
                 "add_in_on_add_yield_existing_multi",
@@ -1690,6 +1700,14 @@
                 "on_remove_multi_optional",
                 "on_add_multi_only_optional",
                 "on_remove_multi_only_optional",
+                "on_add_multi_observers_w_prefab_instance",
+                "on_add_overlapping_multi_observers_w_prefab_instance",
+                "mask_propagated_component_after_reparent",
+                "2_up_terms_w_batched_add",
+                "on_table_create",
+                "on_table_create_is_deferred",
+                "on_table_create_is_deferred_batched",
+                "2_children_w_deferred_set",
                 "cache_test_1",
                 "cache_test_2",
                 "cache_test_3",
@@ -2059,14 +2077,14 @@
                 "fini_queue_overflow",
                 "exclusive_on_delete",
                 "exclusive_on_delete_target",
-                "exclusive_on_instantiate"
+                "exclusive_on_instantiate",
+                "world_init_fini_log_all"
             ]
         }, {
             "id": "WorldInfo",
             "testcases": [
                 "get_tick",
                 "table_count",
-                "empty_table_count",
                 "table_create_count",
                 "table_delete_count",
                 "id_tag_component_count",
@@ -2110,6 +2128,12 @@
                 "defer_remove",
                 "defer_remove_two",
                 "defer_set",
+                "defer_set_large",
+                "defer_set_large_non_trivial",
+                "defer_set_non_trivial",
+                "defer_batched_set_large",
+                "defer_batched_set_large_non_trivial",
+                "defer_batched_set_non_trivial",
                 "defer_delete",
                 "defer_twice",
                 "defer_twice_in_progress",
@@ -2244,7 +2268,9 @@
                 "defer_emplace_after_remove",
                 "batched_w_table_change_in_observer",
                 "redefine_named_in_threaded_app",
-                "batched_cmd_w_component_init"
+                "batched_cmd_w_component_init",
+                "deep_command_nesting",
+                "ensure_from_2_stages"
             ]
         }, {
             "id": "SingleThreadStaging",
@@ -2416,7 +2442,6 @@
                 "log_log",
                 "log_warning",
                 "log_error",
-                "last_error",
                 "set_log_level_return"
             ]
         }, {
